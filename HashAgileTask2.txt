@@ -1,0 +1,66 @@
+import pandas as pd
+
+# Load the employee dataset
+file_path = 'employee.csv'
+employee_df = pd.read_csv(file_path, encoding='ISO-8859-1')
+# Create a collection (in this case, we will use a DataFrame)
+def createCollection(collection_name):
+    return pd.DataFrame()
+
+# Index the data into the specified collection excluding the given column
+def indexData(collection, data, exclude_column):
+    return data.drop(columns=[exclude_column])
+
+# Search within the specified collection
+def searchByColumn(collection, column_name, column_value):
+    return collection[collection[column_name] == column_value]
+
+# Get employee count
+def getEmpCount(collection):
+    return len(collection)
+
+# Delete an employee by ID
+def delEmpById(collection, employee_id):
+    return collection[collection['EmployeeID'] != employee_id]
+
+# Get department facet
+def getDepFacet(collection):
+    return collection['Department'].value_counts()
+# Function Definitions
+def createCollection(collection_name):
+    return employee_df.copy()  # Create a new DataFrame based on the existing one
+def indexData(collection, exclude_column):
+    return collection.drop(columns=[exclude_column])
+def getEmpCount(collection):
+    return len(collection)
+def delEmpById(collection, employee_id):
+    return collection[collection['Employee ID'] != employee_id]
+def searchByColumn(collection, column_name, column_value):
+    return collection[collection[column_name] == column_value]
+def getDepFacet(collection):
+    return collection['Department'].value_counts()
+# Function Executions
+v_nameCollection = 'sujithkumar'
+v_phoneCollection = '1020'
+
+# Create collections
+name_collection = createCollection(v_nameCollection)
+print("Name Collection created successfully.")
+
+# Get employee count
+print("Employee Count (Name Collection):", getEmpCount(name_collection))
+# Example indexing data (excluding a column)
+indexed_name_collection = indexData(name_collection, 'Department')
+print("Data indexed successfully, excluding the 'Department' column.")
+# Delete employee by ID
+name_collection = delEmpById(name_collection, 'E02003')
+print("Employee with ID 'E02003' deleted successfully."
+# Get updated employee counts
+print("Updated Employee Count (Name Collection):", getEmpCount(name_collection))
+# Search by column
+search_it_department = searchByColumn(name_collection, 'Department', 'IT')
+print("Employees in IT Department:\n", search_it_department)
+search_male_gender = searchByColumn(name_collection, 'Gender', 'Male')
+print("Male Employees:\n", search_male_gender)
+# Get department facet
+print("Department Facet:\n", getDepFacet(name_collection))
